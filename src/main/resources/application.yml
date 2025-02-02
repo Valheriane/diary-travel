@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: japanAppli
+  datasource:
+    #url: jdbc:h2:mem:apidb;DB_CLOSE_DELAY=-1 # for In-memory database and jdbc:h2:file:[path/database-name] for disk-based database.
+    #driver-class-name: org.h2.Driver
+    #username: sa
+    #password:
+
+    url: jdbc:mysql://127.0.0.1:3306/applyjapan  # URL de la base de données MySQL locale
+    driver-class-name: com.mysql.cj.jdbc.Driver  # Utilisation du driver MySQL
+    username: root
+    password: ""  # Pas de mot de passe pour root
+
+    #url: jdbc:mariadb://db5017066152.hosting-data.io:3306/applyJapan
+    #driver-class-name: org.mariadb.jdbc.Driver
+    #username: dbu135914
+    #password: BajiKeisuke03111990* # Remplace par ton mot de passe
+  jpa:
+    show-sql: true # Affiche les requêtes SQL dans la console
+    defer-datasource-initialization: true # S'assure que la base est prête avant l'initialisation
+    hibernate:
+      ddl-auto: create #update # Crée ou met à jour les tables automatiquement
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        #dialect: org.hibernate.dialect.H2Dialect
+        #dialect: org.hibernate.dialect.MariaDBDialect # Utilise le dialecte MariaDB
+        format_sql: true # Formate les requêtes SQL dans les logs
+        hibernate.transaction.jta.platform: org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform
+  sql:
+    init:
+      data-locations: classpath:db-init/data.sql # Chargement des données d'initialisation
+      mode: always # Exécute les scripts à chaque démarrage
+server:
+  port: 8083
+  #servlet:
+    #context-path: /api/# Définit le chemin de base pour les API
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /api/swagger-ui.html
+
+jwt:
+  secret: _s2mJNuIAMSRZnWj6zUO7r1GjNnuFJHpyelgNt54LaWXpe8s71eo0efxn1qLf_fSBPqBCmzScLA0o50nDsMvUw  #${JWT_SECRET} # To have environment variable for your secret ${MY_TOP_SECRET}
+  expiration: 3600000
+
+logging:
+  level:
+    org.springframework.security: TRACE
+    org.springframework.web: TRACE
